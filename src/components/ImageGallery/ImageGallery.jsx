@@ -10,47 +10,31 @@ import Button from '../Button/Button';
 // import { ToastContainer, toast } from 'react-toastify';
 
 
-export default function ImageGallery({searchText, page, nextPage}) {
+export default function ImageGallery({searchText}) {
   const [gallery, setGallery] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [largeImage, setLargeImage] = useState(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    // console.log('Первый рендер');
     if (searchText === '') {
-      // console.log('пустая строка');
       return;
     }
     setIsLoading(true);
 
     getGallery(searchText, page)
       .then(gallery => setGallery(gallery.hits))
-      
-      .then(gallery => {
-        setGallery(prevGallery => [...prevGallery, ...gallery.hits]);
-      })
-
       .finally(() => {
         setIsLoading(false);
       });
 
-  }, [searchText, page]);
-
- 
-
-
-  //   if (prevProps.page !== this.props.page && this.props.page > 1) {
-  //     this.fetchLoadMore();
-  //   }
-  // }
-
- 
+  }, [page, searchText]);
 
   const fetchLoadMore = () => {
     getGallery(searchText, page)
-      .then(gallery => {
-        setGallery(prevGallery => [...prevGallery, ...gallery.hits]);
+      .then(gallery => {setGallery(prevGallery => [...prevGallery, ...gallery.hits]);
+        setPage(prev => prev + 1);
       })
       // .catch(error => this.setState({ status: 'rejected' }));
   };
@@ -88,7 +72,7 @@ export default function ImageGallery({searchText, page, nextPage}) {
           />
         ))}
       </ul>
-      {gallery.length >= 12 && <Button onClick={nextPage} />}
+      {gallery.length >= 12 && <Button onClick={fetchLoadMore} />}
 
       {showModal && <Modal toggleModal={toggleModal} largeImage={largeImage} />}
     </>
