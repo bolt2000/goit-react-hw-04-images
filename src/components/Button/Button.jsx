@@ -9,6 +9,6 @@ export default function Button({ onClick }) {
   );
 }
 
-Button.propTypes = {
-  nextPage: PropTypes.func.isRequired,
-};
+// Button.propTypes = {
+//   nextPage: PropTypes.func.isRequired,
+// };

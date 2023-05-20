@@ -25,9 +25,9 @@ export default function ImageGallery({searchText}) {
 
     getGallery(searchText, page)
       .then(gallery => setGallery(gallery.hits))
-      .finally(() => {
+      // .finally(() => {
         setIsLoading(false);
-      });
+      // });
 
   }, [page, searchText]);
 
