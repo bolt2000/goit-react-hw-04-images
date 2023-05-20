@@ -1,57 +1,114 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import css from './SearchBar.module.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 // import { ToastContainer, toast } from 'react-toastify';
 
-class FormSearch extends Component {
-  state = {
-    searchText: '',
+export default function FormSearch({ onSubmit }) {
+  const [searchText, setSearchText] = useState('');
+
+  const handleChange = e => {
+    setSearchText(e.currentTarget.value.toLowerCase());
   };
 
-  handleChange = e => {
-    this.setState({ searchText: e.currentTarget.value.toLowerCase() });
-  };
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    if (this.state.searchText.trim() === '') {
+    if (searchText.trim() === '') {
       // toast.warning('Enter data in the search field!');
       return alert('Enter word search');
     }
-
-    this.props.onSubmit(this.state.searchText);
-    this.setState({ searchText: '' });
+    onSubmit(searchText);
+    // setSearchText('');
   };
 
-  reset = () => {
-    this.setState({ searchText: '' });
-  };
+  // const reset = () => {
+  //   setSearchText(searchText);
+  // };
 
-  render() {
-    return (
-      <header className={css.Searchbar}>
-        <form className={css.SearchForm} onSubmit={this.handleSubmit}>
-          <button type="submit" className={css.SearchForm_button}>
-            <span className={css.SearchForm_button_label}>Search</span>
-          </button>
+  return (
+    <header className={css.Searchbar}>
+      <form className={css.SearchForm} onSubmit={handleSubmit}>
+        <button type="submit" className={css.SearchForm_button}>
+          <span className={css.SearchForm_button_label}>Search</span>
+        </button>
 
-          <input
-            className={css.SearchForm_input}
-            type="text"
-            autoComplete="off"
-            value={this.state.searchText}
-            autoFocus
-            placeholder="Search images and photos"
-            onChange={this.handleChange}
-          />
-        </form>
-      </header>
-    );
-  }
+        <input
+          className={css.SearchForm_input}
+          type="text"
+          autoComplete="off"
+          value={searchText}
+          autoFocus
+          placeholder="Search images and photos"
+          onChange={handleChange}
+        />
+      </form>
+    </header>
+  );
+
+  // FormSearch.propTypes = {
+  //   onSubmit: PropTypes.func.isRequired,
+  // };
 }
+// export default FormSearch;
 
-FormSearch.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
-export default FormSearch;
+
+
+
+
+
+
+
+
+
+// class FormSearch extends Component {
+//   state = {
+//     searchText: '',
+//   };
+
+//   handleChange = e => {
+//     this.setState({ searchText: e.currentTarget.value.toLowerCase() });
+//   };
+
+//   handleSubmit = e => {
+//     e.preventDefault();
+//     if (this.state.searchText.trim() === '') {
+//       // toast.warning('Enter data in the search field!');
+//       return alert('Enter word search');
+//     }
+
+//     this.props.onSubmit(this.state.searchText);
+//     this.setState({ searchText: '' });
+//   };
+
+//   reset = () => {
+//     this.setState({ searchText: '' });
+//   };
+
+//   render() {
+//     return (
+//       <header className={css.Searchbar}>
+//         <form className={css.SearchForm} onSubmit={this.handleSubmit}>
+//           <button type="submit" className={css.SearchForm_button}>
+//             <span className={css.SearchForm_button_label}>Search</span>
+//           </button>
+
+//           <input
+//             className={css.SearchForm_input}
+//             type="text"
+//             autoComplete="off"
+//             value={this.state.searchText}
+//             autoFocus
+//             placeholder="Search images and photos"
+//             onChange={this.handleChange}
+//           />
+//         </form>
+//       </header>
+//     );
+//   }
+// }
+
+// FormSearch.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
+
+// export default FormSearch;
