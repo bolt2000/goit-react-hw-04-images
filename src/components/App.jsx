@@ -11,6 +11,7 @@ export function App() {
   // const nextPage = () => {
   //   setPage(( page + 1 ));
   // };
+  
 
   const handleSearch = searchText => {
     setSearchText(searchText);

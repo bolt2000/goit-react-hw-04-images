@@ -7,14 +7,17 @@ import { getGallery } from 'services/GetGallery';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import css from './ImageGallery.module.css';
 import Button from '../Button/Button';
+
+
 // import { ToastContainer, toast } from 'react-toastify';
 
-export default function ImageGallery({ searchText }) {
+export default function ImageGallery({ searchText}) {
   const [gallery, setGallery] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [largeImage, setLargeImage] = useState(null);
   const [page, setPage] = useState(1);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     if (searchText === '') {
@@ -26,12 +29,11 @@ export default function ImageGallery({ searchText }) {
   }, [page, searchText]);
 
   const fetchLoadMore = () => {
-    getGallery(searchText)
-      .then(gallery => {
-        setGallery(prevGallery => [...prevGallery, ...gallery.hits]);
-        setPage(prev => prev + 1);
-      })
-      .catch(error => this.setState({ status: 'rejected' }));
+    getGallery(searchText, page).then(gallery => {
+      setGallery(prevGallery => [...prevGallery, ...gallery.hits]);
+      setPage(prev => prev + 1);
+    });
+    // .catch(error => {setError('rejected')});
   };
 
   const toggleModal = () => {
