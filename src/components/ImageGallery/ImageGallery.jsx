@@ -29,18 +29,17 @@ export default function ImageGallery({ searchText }) {
       .then(gallery => { setGallery(gallery.hits) });
     
     setIsLoading(false);
-
+console.log('перший рендер');
 
   }, [searchText]);
 
   const fetchLoadMore = () => {
-    getGallery(searchText, page)
+    console.log('інші картинки');
+    getGallery([searchText, page])
       .then(gallery => {
-        const hits = gallery.hits;
-        setGallery(gallery => [...gallery, ...hits]);
-        setPage(prev => prev + 1);
-      });
-    // .catch(error => {setError('rejected')});
+      setGallery(prevGallery => [...prevGallery, ...gallery.hits]);
+      setPage(prev => prev + 1);
+    });
   };
 
 
@@ -85,8 +84,9 @@ export default function ImageGallery({ searchText }) {
         />
       )}
       <ul className={css.ImageGallery}>
-        {gallery.map(({ id, webformatURL }, index) => (
+        {gallery.map(({ id, webformatURL, tag }, index) => (
           <ImageGalleryItem
+            tag={tag}
             key={id}
             webformatURL={webformatURL}
             index={index}
