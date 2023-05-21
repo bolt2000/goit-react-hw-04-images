@@ -1,5 +1,5 @@
 import css from './Button.module.css';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default function Button({ onClick }) {
   return (
@@ -9,6 +9,6 @@ export default function Button({ onClick }) {
   );
 }
 
-// Button.propTypes = {
-//   nextPage: PropTypes.func.isRequired,
-// };
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};

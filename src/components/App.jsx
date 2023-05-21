@@ -9,9 +9,8 @@ export function App() {
   // const [page, setPage] = useState(1);
 
   // const nextPage = () => {
-  //   setPage(( page + 1 ));
+  //   setPage(prev => prev + 1);
   // };
-  
 
   const handleSearch = searchText => {
     setSearchText(searchText);

@@ -11,7 +11,7 @@ import Button from '../Button/Button';
 
 // import { ToastContainer, toast } from 'react-toastify';
 
-export default function ImageGallery({ searchText}) {
+export default function ImageGallery({ searchText }) {
   const [gallery, setGallery] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -24,17 +24,42 @@ export default function ImageGallery({ searchText}) {
       return;
     }
     setIsLoading(true);
-    getGallery(searchText, page).then(gallery => setGallery(gallery.hits));
+
+    getGallery(searchText)
+      .then(gallery => { setGallery(gallery.hits) });
+    
     setIsLoading(false);
-  }, [page, searchText]);
+
+
+  }, [searchText]);
 
   const fetchLoadMore = () => {
-    getGallery(searchText, page).then(gallery => {
-      setGallery(prevGallery => [...prevGallery, ...gallery.hits]);
-      setPage(prev => prev + 1);
-    });
+    getGallery(searchText, page)
+      .then(gallery => {
+        const hits = gallery.hits;
+        setGallery(gallery => [...gallery, ...hits]);
+        setPage(prev => prev + 1);
+      });
     // .catch(error => {setError('rejected')});
   };
+
+
+
+// const fetchLoadMore = () => {
+//   getGallery(searchText, page).then(gallery => {
+//     // const { hits } = res.total;
+//     setGallery(prev => [...prev, ...gallery.hits]);
+//     setPage(prev => prev + 1);
+//   });
+//     // .catch(error => {
+//     //   setError({ status: STATUS.error, error });
+//     // });
+// };
+
+
+
+
+
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -69,6 +94,7 @@ export default function ImageGallery({ searchText}) {
           />
         ))}
       </ul>
+
       {gallery.length >= 12 && <Button onClick={fetchLoadMore} />}
 
       {showModal && <Modal toggleModal={toggleModal} largeImage={largeImage} />}

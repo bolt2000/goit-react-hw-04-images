@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import css from './SearchBar.module.css';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import { ToastContainer, toast } from 'react-toastify';
 
 export default function FormSearch({ onSubmit }) {
@@ -17,7 +17,7 @@ export default function FormSearch({ onSubmit }) {
       return alert('Enter word search');
     }
     onSubmit(searchText);
-    // setSearchText('');
+    setSearchText('');
   };
 
   // const reset = () => {
@@ -44,11 +44,11 @@ export default function FormSearch({ onSubmit }) {
       </form>
     </header>
   );
-
-  // FormSearch.propTypes = {
-  //   onSubmit: PropTypes.func.isRequired,
-  // };
 }
+  FormSearch.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
 // export default FormSearch;
 
 
