@@ -9,8 +9,7 @@ import css from './ImageGallery.module.css';
 import Button from '../Button/Button';
 // import { ToastContainer, toast } from 'react-toastify';
 
-
-export default function ImageGallery({searchText}) {
+export default function ImageGallery({ searchText }) {
   const [gallery, setGallery] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -22,30 +21,26 @@ export default function ImageGallery({searchText}) {
       return;
     }
     setIsLoading(true);
-
-    getGallery(searchText, page)
-      .then(gallery => setGallery(gallery.hits))
-      // .finally(() => {
-        setIsLoading(false);
-      // });
-
+    getGallery(searchText, page).then(gallery => setGallery(gallery.hits));
+    setIsLoading(false);
   }, [page, searchText]);
 
   const fetchLoadMore = () => {
     getGallery(searchText)
-      .then(gallery => {setGallery(prevGallery => [...prevGallery, ...gallery.hits]);
+      .then(gallery => {
+        setGallery(prevGallery => [...prevGallery, ...gallery.hits]);
         setPage(prev => prev + 1);
       })
       .catch(error => this.setState({ status: 'rejected' }));
   };
 
   const toggleModal = () => {
-    setShowModal(!showModal )
+    setShowModal(!showModal);
   };
 
   const openModal = e => {
-    setShowModal(true)
-      setLargeImage(gallery[e].largeImageURL);
+    setShowModal(true);
+    setLargeImage(gallery[e].largeImageURL);
   };
 
   return (
