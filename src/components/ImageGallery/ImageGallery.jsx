@@ -32,11 +32,11 @@ export default function ImageGallery({searchText}) {
   }, [page, searchText]);
 
   const fetchLoadMore = () => {
-    getGallery(searchText, page)
+    getGallery(searchText)
       .then(gallery => {setGallery(prevGallery => [...prevGallery, ...gallery.hits]);
         setPage(prev => prev + 1);
       })
-      // .catch(error => this.setState({ status: 'rejected' }));
+      .catch(error => this.setState({ status: 'rejected' }));
   };
 
   const toggleModal = () => {

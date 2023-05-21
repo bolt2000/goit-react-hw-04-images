@@ -28,6 +28,7 @@ export default function FormSearch({ onSubmit }) {
     <header className={css.Searchbar}>
       <form className={css.SearchForm} onSubmit={handleSubmit}>
         <button type="submit" className={css.SearchForm_button}>
+          
           <span className={css.SearchForm_button_label}>Search</span>
         </button>
 
